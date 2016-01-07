@@ -11,5 +11,5 @@ Example
 
 SOLUTIONS
 ==========
-- assume discountStep = 5, productPrice = 120
-- totalDiscount = (((OrderAmount - 1) / 100) * discountStep) * productPrice
+- assume discountStep = 5, buyAmount = 401
+- totalDiscount = (((OrderAmount - 1) / 100) * discountStep) * buyAmount

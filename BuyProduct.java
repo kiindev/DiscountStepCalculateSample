@@ -6,7 +6,7 @@ package de.easeco;
 public class BuyProduct {
 
     private static BuyProduct _instance;
-    private static BuyResult mBuyResultDelegate;
+    private static BuyResult _delegate;
     private ProductStock mProductStockToBuy;
     private int mProductAmountToBuy;
 
@@ -15,7 +15,7 @@ public class BuyProduct {
         if(_instance == null) {
             _instance = new BuyProduct();
         }
-        mBuyResultDelegate = paramBuyResultDelegate;
+        _delegate = paramBuyResultDelegate;
         return _instance;
     }
 
@@ -32,17 +32,17 @@ public class BuyProduct {
     public void beginTransaction(){
         if(!mProductStockToBuy.isProductOutOfStock()){
             if(mProductStockToBuy.doSubtractStock(this.mProductAmountToBuy)){
-                mBuyResultDelegate.onBuySuccess(
+                _delegate.onBuySuccess(
                         mProductStockToBuy.getProductAmount(),
                         doSummaryPrice(),
                         doCalculateTotalDiscount(),
                         doCalcTotalPrice()
                 );
             }else{
-                mBuyResultDelegate.onProductHaveNotEnoughToBuy();
+                _delegate.onProductHaveNotEnoughToBuy();
             }
         }else{
-            mBuyResultDelegate.onProductOutOfStock();
+            _delegate.onProductOutOfStock();
         }
     }
 
